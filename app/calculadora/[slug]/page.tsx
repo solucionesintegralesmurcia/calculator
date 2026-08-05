@@ -7,7 +7,7 @@ import {
   buildFaqSchema,
   buildBreadcrumbSchema,
 } from '@/lib/seo/generate'
-import { NominaForm } from '@/components/calculator/NominaForm'
+import { CalculatorForm } from '@/components/calculator/CalculatorForm'
 import { FaqAccordion } from '@/components/calculator/FaqAccordion'
 
 export const revalidate = 21600 // ISR: 6 horas
@@ -73,9 +73,7 @@ export default async function CalculadoraPage({ params }: PageParams) {
         </article>
 
         <aside>
-          {/* Solo cableado para 'nomina' de momento; el resto de calculadoras
-              tendrán su propio <XxxForm /> siguiendo el mismo patrón. */}
-          {meta.slug === 'nomina' && <NominaForm />}
+          <CalculatorForm slug={meta.slug} />
         </aside>
       </div>
     </main>

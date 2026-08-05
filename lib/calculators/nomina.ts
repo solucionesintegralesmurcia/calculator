@@ -121,6 +121,38 @@ export const nominaCalculator: CalculatorDefinition<NominaInput, NominaBreakdown
     shortDescription: 'Convierte tu salario bruto en neto mensual, con desglose de SS e IRPF.',
     updatedAt: '2026-01-01',
   },
+  fields: [
+    { key: 'salarioBrutoAnual', label: 'Salario bruto anual', type: 'number', suffix: '€' },
+    {
+      key: 'pagasExtra',
+      label: 'Número de pagas',
+      type: 'select',
+      valueAsNumber: true,
+      options: [
+        { value: '14', label: '14 pagas' },
+        { value: '12', label: '12 pagas (prorrateadas)' },
+      ],
+    },
+    {
+      key: 'situacionFamiliar',
+      label: 'Situación familiar',
+      type: 'select',
+      options: [
+        { value: 'soltero', label: 'Soltero/a' },
+        { value: 'casado_1_ingreso', label: 'Casado/a, 1 ingreso' },
+        { value: 'casado_2_ingresos', label: 'Casado/a, 2 ingresos' },
+      ],
+    },
+    { key: 'numHijos', label: 'Número de hijos', type: 'number' },
+  ],
+  defaultValues: {
+    salarioBrutoAnual: 24000,
+    pagasExtra: 14,
+    situacionFamiliar: 'soltero',
+    numHijos: 0,
+    comunidadAutonoma: 'generico',
+    contratoIndefinido: true,
+  },
   faqs: [
     {
       question: '¿Cómo se calcula el salario neto a partir del bruto?',

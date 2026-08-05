@@ -1,14 +1,15 @@
 // Tipos base que toda calculadora debe respetar.
-// Cada calculadora nueva implementa esta interfaz -> consistencia total en el sitio.
+// Cada calculadora implementa esta interfaz -> un único <CalculatorForm>
+// genérico sabe renderizarlas todas sin código repetido por calculadora.
 
 export interface CalculatorMeta {
-  slug: string                // 'nomina'
-  categorySlug: string        // 'laboral'
-  title: string                // Título H1
-  seoTitle: string             // <title> optimizado (puede diferir del H1)
+  slug: string
+  categorySlug: string
+  title: string
+  seoTitle: string
   metaDescription: string
-  shortDescription: string     // usado en cards de listado/relacionadas
-  updatedAt: string            // ISO date, para mostrar "Actualizado el..." (E-E-A-T)
+  shortDescription: string
+  updatedAt: string
 }
 
 export interface FaqItem {
@@ -25,8 +26,26 @@ export interface CalculationResult<T = Record<string, number>> {
   breakdown: T
 }
 
+export interface FieldOption {
+  value: string
+  label: string
+}
+
+export interface FieldDef {
+  key: string
+  label: string
+  type: 'number' | 'select' | 'checkbox'
+  options?: FieldOption[]
+  suffix?: string
+  step?: number
+  /** Para 'select' con opciones numéricas (ej: 12/14 pagas, 21/10/4 % IVA) */
+  valueAsNumber?: boolean
+}
+
 export interface CalculatorDefinition<TInput, TBreakdown> {
   meta: CalculatorMeta
   faqs: FaqItem[]
+  fields: FieldDef[]
+  defaultValues: TInput
   calculate: (input: TInput) => CalculationResult<TBreakdown>
 }
